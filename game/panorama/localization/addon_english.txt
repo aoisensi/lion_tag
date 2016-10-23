@@ -1,0 +1,4 @@
+"addon"
+{
+	"ADDON_GAME_NAME"	"Lion's Tag"
+}
