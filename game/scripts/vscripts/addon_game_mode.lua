@@ -40,6 +40,8 @@ function LionTag:OnNPCSpawned(keys)
 end
 
 function LionTag:OnHeroInGame(hero)
+	hero:SetAbilityPoints(0)
+	
 	local dagon = CreateItem('item_dagon_5', nil, nil)
 	local phase = CreateItem('item_phase_boots', nil, nil)
 	local blink = CreateItem('item_blink', nil, nil)
