@@ -10,6 +10,9 @@ end
 function LionTag:InitGameMode()
 	GameRules:SetSameHeroSelectionEnabled(true)
 
+	local mode = GameRules:GetGameModeEntity()
+	mode:SetFixedRespawnTime(15.0)
+
 	ListenToGameEvent('npc_spawned', Dynamic_Wrap(LionTag, 'OnNPCSpawned'), self)
 	ListenToGameEvent('dota_player_killed', Dynamic_Wrap(LionTag, 'OnPlayerKilled'), self)
 
