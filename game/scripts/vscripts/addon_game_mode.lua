@@ -8,6 +8,8 @@ function Activate()
 end
 
 function LionTag:InitGameMode()
+	GameRules:SetSameHeroSelectionEnabled(true)
+
 	ListenToGameEvent('npc_spawned', Dynamic_Wrap(LionTag, 'OnNPCSpawned'), self)
 	ListenToGameEvent('dota_player_killed', Dynamic_Wrap(LionTag, 'OnPlayerKilled'), self)
 
