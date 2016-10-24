@@ -12,6 +12,7 @@ function LionTag:InitGameMode()
 
 	local mode = GameRules:GetGameModeEntity()
 	mode:SetFixedRespawnTime(15.0)
+	mode:SetModifyExperienceFilter(Dynamic_Wrap(LionTag, "ModifyExperienceFilter"), self)
 
 	ListenToGameEvent('npc_spawned', Dynamic_Wrap(LionTag, 'OnNPCSpawned'), self)
 	ListenToGameEvent('dota_player_killed', Dynamic_Wrap(LionTag, 'OnPlayerKilled'), self)
@@ -41,7 +42,7 @@ end
 
 function LionTag:OnHeroInGame(hero)
 	hero:SetAbilityPoints(0)
-	
+
 	local dagon = CreateItem('item_dagon_5', nil, nil)
 	local phase = CreateItem('item_phase_boots', nil, nil)
 	local blink = CreateItem('item_blink', nil, nil)
@@ -65,4 +66,9 @@ function LionTag:OnPlayerKilled(keys)
 	if kills >= 49 then
 		GameRules:SetGameWinner(team)
 	end
+end
+
+function LionTag:ModifyExperienceFilter(filterTable)
+	filterTable["experience"] = 0
+	return true
 end
