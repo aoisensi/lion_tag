@@ -8,14 +8,19 @@ function Activate()
 end
 
 function LionTag:InitGameMode()
+	self.Remaining = {}
+
 	GameRules:SetSameHeroSelectionEnabled(true)
 
 	local mode = GameRules:GetGameModeEntity()
 	mode:SetFixedRespawnTime(15.0)
 	mode:SetModifyExperienceFilter(Dynamic_Wrap(LionTag, "ModifyExperienceFilter"), self)
+	mode:SetTopBarTeamValuesOverride(true)
+	self.GameMode = mode
 
 	ListenToGameEvent('npc_spawned', Dynamic_Wrap(LionTag, 'OnNPCSpawned'), self)
 	ListenToGameEvent('dota_player_killed', Dynamic_Wrap(LionTag, 'OnPlayerKilled'), self)
+	ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(LionTag, 'OnGameStart'), self)
 
 	-- Remove Spawners
 	local spawners = {
@@ -53,17 +58,19 @@ end
 
 function LionTag:OnPlayerKilled(keys)
 	local team = PlayerResource:GetTeam(keys.PlayerID)
-	print(GetTeamHeroKills(DOTA_TEAM_GOODGUYS))
-	print(GetTeamHeroKills(DOTA_TEAM_BADGUYS))
-	if team == DOTA_TEAM_GOODGUYS then
-		team = DOTA_TEAM_BADGUYS
-	elseif team == DOTA_TEAM_BADGUYS then
-		team = DOTA_TEAM_GOODGUYS
-	else
+	if self.Remaining[team] == nil then
 		return
 	end
-	local kills = GetTeamHeroKills(team)
-	if kills >= 49 then
+	self.Remaining[team] = self.Remaining[team] - 1
+	self:UpdateTopBar()
+	if self.Remaining[team] <= 0 then
+		if team == DOTA_TEAM_GOODGUYS then
+			team = DOTA_TEAM_BADGUYS
+		elseif team == DOTA_TEAM_BADGUYS then
+			team = DOTA_TEAM_GOODGUYS
+		else
+			team = DOTA_TEAM_NEUTRALS
+		end
 		GameRules:SetGameWinner(team)
 	end
 end
@@ -71,4 +78,20 @@ end
 function LionTag:ModifyExperienceFilter(filterTable)
 	filterTable["experience"] = 0
 	return true
+end
+
+function LionTag:OnGameStart(keys)
+	self.Remaining[DOTA_TEAM_GOODGUYS] = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS) * 10
+	self.Remaining[DOTA_TEAM_BADGUYS] = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) * 10
+	self:UpdateTopBar()
+end
+
+function LionTag:UpdateTopBar()
+	print(self.Remaining[DOTA_TEAM_GOODGUYS])
+	print(self.Remaining[DOTA_TEAM_BADGUYS])
+	table.foreach(self.Remaining, 
+		function(team, remain)
+			self.GameMode:SetTopBarTeamValue(team, remain)
+		end
+	)
 end
