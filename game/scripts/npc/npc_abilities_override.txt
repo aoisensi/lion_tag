@@ -267,11 +267,6 @@
 		"ItemPurchasable" "0"
 	}
 
-	"item_tpscroll"
-	{
-		"ItemPurchasable" "0"
-	}
-
 	"item_recipe_travel_boots"
 	{
 		"ItemPurchasable" "0"
