@@ -2,10 +2,12 @@
 {
 	"npc_dota_hero_lion_tag"
 	{
+		"AbilityLayout"				"0"
 		"override_hero"				"npc_dota_hero_lion"
 		"Ability1"					""
 		"Ability2"					""
 		"Ability3"					""
 		"Ability4"					""
+		"Ability5"					""
 	}
 }
