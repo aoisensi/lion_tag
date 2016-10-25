@@ -1,0 +1,11 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/dotastyles.css" />
+		<include src="file://{resources}/styles/custom_game/custom_loading_screen.css" />
+	</styles>
+	<Panel class="LionTagRoot">
+		<Panel id="TitlePanel">
+			<Label id="LionTagTitle" text="#addon_game_name" style="" />
+		</Panel>
+	</Panel>
+</root>
