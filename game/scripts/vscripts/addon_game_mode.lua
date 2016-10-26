@@ -81,11 +81,11 @@ function LionTag:ModifyExperienceFilter(filterTable)
 end
 
 function LionTag:OnGameStart(keys)
-	local goodLife = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) * 10
+	local goodLife = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS) * 10
 	if goodLife == 0 then
 		goodLife = 1
 	end
-	local badLife = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_BADGUYS) * 10
+	local badLife = PlayerResource:GetPlayerCountForTeam(DOTA_TEAM_GOODGUYS) * 10
 	if badLife == 0 then
 		badLife = 1
 	end
