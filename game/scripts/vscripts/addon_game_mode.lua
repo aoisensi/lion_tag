@@ -16,6 +16,7 @@ function LionTag:InitGameMode()
 	mode:SetFixedRespawnTime(15.0)
 	mode:SetModifyExperienceFilter(Dynamic_Wrap(LionTag, "ModifyExperienceFilter"), self)
 	mode:SetTopBarTeamValuesOverride(true)
+	mode:SetBountyRunePickupFilter(Dynamic_Wrap(LionTag, "BountyRunePickupFilter"), self)
 	self.GameMode = mode
 
 	ListenToGameEvent('npc_spawned', Dynamic_Wrap(LionTag, 'OnNPCSpawned'), self)
@@ -102,4 +103,8 @@ function LionTag:UpdateTopBar()
 			self.GameMode:SetTopBarTeamValue(team, remain)
 		end
 	)
+end
+
+function LionTag:BountyRunePickupFilter(keys)
+	keys["xp_bounty"] = 0
 end
