@@ -76,8 +76,8 @@ function LionTag:OnPlayerKilled(keys)
 	end
 end
 
-function LionTag:ModifyExperienceFilter(filterTable)
-	filterTable["experience"] = 0
+function LionTag:ModifyExperienceFilter(keys)
+	keys["experience"] = 0
 	return true
 end
 
@@ -96,8 +96,6 @@ function LionTag:OnGameStart(keys)
 end
 
 function LionTag:UpdateTopBar()
-	print(self.Remaining[DOTA_TEAM_GOODGUYS])
-	print(self.Remaining[DOTA_TEAM_BADGUYS])
 	table.foreach(self.Remaining, 
 		function(team, remain)
 			self.GameMode:SetTopBarTeamValue(team, remain)
@@ -106,5 +104,10 @@ function LionTag:UpdateTopBar()
 end
 
 function LionTag:BountyRunePickupFilter(keys)
+	keys["gold_bounty"] = 0
 	keys["xp_bounty"] = 0
+	local item = CreateItem("item_ward_observer", nil, nil)
+	local player = PlayerResource:GetPlayer(keys["player_id_const"])
+	local hero = player:GetAssignedHero()
+	hero:AddItem(item)
 end

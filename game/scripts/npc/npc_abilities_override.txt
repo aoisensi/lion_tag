@@ -249,7 +249,8 @@
 
 	"item_ward_sentry"
 	{
-		"ItemPurchasable" "0"
+		"ItemCost"				"500"
+		"ItemInitialCharges"	"1"
 	}
 
 	"item_recipe_ward_dispenser"

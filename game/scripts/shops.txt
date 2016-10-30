@@ -4,6 +4,7 @@
 	{
 		"item"		"item_tango"
 		"item"		"item_tpscroll"
+		"item"		"item_ward_sentry"
 	}
 	"attributes"
 	{
