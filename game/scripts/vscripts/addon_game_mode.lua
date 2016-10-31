@@ -49,12 +49,9 @@ end
 function LionTag:OnHeroInGame(hero)
 	hero:SetAbilityPoints(0)
 
-	local dagon = CreateItem('item_dagon_5', nil, nil)
-	local phase = CreateItem('item_phase_boots', nil, nil)
-	local blink = CreateItem('item_blink', nil, nil)
-	hero:AddItem(dagon)
-	hero:AddItem(phase)
-	hero:AddItem(blink)
+	hero:AddItemByName('item_dagon_5')
+	hero:AddItemByName('item_phase_boots')
+	hero:AddItemByName('item_blink')
 end
 
 function LionTag:OnPlayerKilled(keys)
@@ -106,8 +103,7 @@ end
 function LionTag:BountyRunePickupFilter(keys)
 	keys["gold_bounty"] = 0
 	keys["xp_bounty"] = 0
-	local item = CreateItem("item_ward_observer", nil, nil)
 	local player = PlayerResource:GetPlayer(keys["player_id_const"])
 	local hero = player:GetAssignedHero()
-	hero:AddItem(item)
+	hero:AddItemByName("item_ward_observer")
 end
