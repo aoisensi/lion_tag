@@ -1,4 +1,6 @@
 "AddonInfo"
 {
 	"maps"	"dota"
+	"TeamCount"	"2"
+	"MaxPlayers"	"20"
 }

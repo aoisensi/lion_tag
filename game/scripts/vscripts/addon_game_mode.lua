@@ -11,6 +11,9 @@ function LionTag:InitGameMode()
 	self.Remaining = {}
 
 	GameRules:SetSameHeroSelectionEnabled(true)
+	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_GOODGUYS, 10)
+	GameRules:SetCustomGameTeamMaxPlayers(DOTA_TEAM_BADGUYS, 10)
+	GameRules:SetHeroSelectionTime(10.0)
 
 	local mode = GameRules:GetGameModeEntity()
 	mode:SetFixedRespawnTime(15.0)
