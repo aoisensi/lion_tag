@@ -20,6 +20,7 @@ function LionTag:InitGameMode()
 	mode:SetModifyExperienceFilter(Dynamic_Wrap(LionTag, "ModifyExperienceFilter"), self)
 	mode:SetTopBarTeamValuesOverride(true)
 	mode:SetBountyRunePickupFilter(Dynamic_Wrap(LionTag, "BountyRunePickupFilter"), self)
+	mode:SetRecommendedItemsDisabled(true)
 	self.GameMode = mode
 
 	ListenToGameEvent('npc_spawned', Dynamic_Wrap(LionTag, 'OnNPCSpawned'), self)
