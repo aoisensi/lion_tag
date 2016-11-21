@@ -265,8 +265,24 @@ function _ScoreboardUpdater_UpdateAllTeamsAndPlayers( scoreboardConfig, teamsCon
 	for ( var teamId of Game.GetAllTeamIDs() )
 	{
 		teamsList.push( Game.GetTeamDetails( teamId ) );
-	}
+    }
 
+	// override team score
+    var scoreGood = teamsList[0].team_score;
+	var playersGood = teamsList[0].team_num_players
+    var scoreBad = teamsList[1].team_score;
+	var playersBad = teamsList[1].team_num_players
+	teamsList[0].team_score = 1
+    teamsList[1].team_score = 1
+    if ( playersGood > 1 )
+    {
+		teamsList[0].team_score = 10 * playersGood - scoreBad
+    }
+	if ( playersBad > 1 )
+    {
+		teamsList[1].team_score = 10 * playersBad - scoreGood
+    }
+	
 	// update/create team panels
 	var teamsInfo = { max_team_players: 0 };
 	var panelsByTeam = [];

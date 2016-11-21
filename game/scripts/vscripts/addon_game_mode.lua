@@ -64,7 +64,7 @@ function LionTag:OnPlayerKilled(keys)
 		return
 	end
 	self.Remaining[team] = self.Remaining[team] - 1
-	self:UpdateTopBar()
+	self:UpdateTopBar(team)
 	if self.Remaining[team] <= 0 then
 		if team == DOTA_TEAM_GOODGUYS then
 			team = DOTA_TEAM_BADGUYS
@@ -92,16 +92,13 @@ function LionTag:OnGameStart(keys)
 		badLife = 1
 	end
 	self.Remaining[DOTA_TEAM_GOODGUYS] = goodLife
+	self:UpdateTopBar(DOTA_TEAM_GOODGUYS)
 	self.Remaining[DOTA_TEAM_BADGUYS] = badLife
-	self:UpdateTopBar()
+	self:UpdateTopBar(DOTA_TEAM_BADGUYS)
 end
 
-function LionTag:UpdateTopBar()
-	table.foreach(self.Remaining, 
-		function(team, remain)
-			self.GameMode:SetTopBarTeamValue(team, remain)
-		end
-	)
+function LionTag:UpdateTopBar(team)
+	self.GameMode:SetTopBarTeamValue(team, self.Remaining[team]) -- obsolete
 end
 
 function LionTag:BountyRunePickupFilter(keys)
